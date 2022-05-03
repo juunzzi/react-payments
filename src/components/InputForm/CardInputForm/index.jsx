@@ -6,9 +6,13 @@ import InputContainer from '../../TypeInputContainer';
 import { uid } from 'react-uid';
 import { objectToString } from '../../../utils/util';
 import { checkFormCompletion, checkFormValidation } from '../../../utils/validation/form';
+import VirtualKeyboard from '../../VirtualKeyboard';
 
 function CardInputForm({ cardInput, cardInputDispatch }) {
-  const [isShowVirtualKeyboard, setIsShowVirtualKeyboard] = useState(false);
+  const [{ isShow, elementKey }, setIsShowVirtualKeyboard] = useState({
+    isShow: false,
+    elementKey: null,
+  });
 
   const isComplete = useFormComplete(cardInput, checkFormCompletion);
 
@@ -33,7 +37,7 @@ function CardInputForm({ cardInput, cardInputDispatch }) {
   };
 
   return (
-    <form onSubmit={onSubmitInputForm}>
+    <form className="card-input-form scroll-form" onSubmit={onSubmitInputForm}>
       {Object.keys(cardInput).map(key => {
         const TypeInputContainer = InputContainer[key];
 
@@ -55,7 +59,14 @@ function CardInputForm({ cardInput, cardInputDispatch }) {
         </button>
       )}
 
-      {isShowVirtualKeyboard && <div>virtual keyboard</div>}
+      {isShow && (
+        <VirtualKeyboard
+          inputElementsRef={inputElementsRef}
+          elementKey={elementKey}
+          cardInputDispatch={cardInputDispatch}
+          setIsShowVirtualKeyboard={setIsShowVirtualKeyboard}
+        />
+      )}
     </form>
   );
 }
