@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isNumberInRange } from '../../../utils/validation/form';
-import { findNotCompletedInput } from '../../../utils/util/form';
 function PasswordInput({
   id,
   maxLength,
@@ -9,7 +7,6 @@ function PasswordInput({
   inputElementsRef,
   inputElementKey,
   setIsShowVirtualKeyboard,
-  setPasswordInputValue,
 }) {
   const onFocus = () => {
     setIsShowVirtualKeyboard(prev => ({

@@ -7,6 +7,7 @@ import { uid } from 'react-uid';
 import { objectToString } from '../../../utils/util';
 import { checkFormCompletion, checkFormValidation } from '../../../utils/validation/form';
 import VirtualKeyboard from '../../VirtualKeyboard';
+import Position from '../../commons/Position';
 
 function CardInputForm({ cardInput, cardInputDispatch }) {
   const [{ isShow, elementKey }, setIsShowVirtualKeyboard] = useState({
@@ -54,18 +55,22 @@ function CardInputForm({ cardInput, cardInputDispatch }) {
       })}
 
       {isComplete && (
-        <button className="button-box">
-          <span className="button-text">다음</span>
-        </button>
+        <Position position="absolute" right="20px">
+          <button className="button-box">
+            <span className="button-text">다음</span>
+          </button>
+        </Position>
       )}
 
       {isShow && (
-        <VirtualKeyboard
-          inputElementsRef={inputElementsRef}
-          elementKey={elementKey}
-          cardInputDispatch={cardInputDispatch}
-          setIsShowVirtualKeyboard={setIsShowVirtualKeyboard}
-        />
+        <Position position="absolute" bottom="0" left="0">
+          <VirtualKeyboard
+            inputElementsRef={inputElementsRef}
+            elementKey={elementKey}
+            cardInputDispatch={cardInputDispatch}
+            setIsShowVirtualKeyboard={setIsShowVirtualKeyboard}
+          />
+        </Position>
       )}
     </form>
   );
